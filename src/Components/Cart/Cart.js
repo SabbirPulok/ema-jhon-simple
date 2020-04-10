@@ -2,7 +2,7 @@ import React from 'react';
 
 const Cart = (props) => {
     const cart = props.cart;
-    const productPrice = cart.reduce((total,prod)=>total+prod.price,0);
+    const productPrice = cart.reduce((total,element)=>total+element.price,0);
     const tax = (productPrice/10);
 
     let shipping =0;
@@ -24,7 +24,7 @@ const Cart = (props) => {
         <div>
             <h3>Order Summery</h3>
             <h4>Items ordered: {cart.length}</h4>
-            <p>Product Price: {productPrice}</p>
+            <p>Product Price: {productPrice.toFixed(2)}</p>
             <p>Shipping Cost: {shipping.toFixed(2)}</p>
             <p>Tax: {tax.toFixed(2)}</p>
             <p>Total Price: {grandTotal}</p>
