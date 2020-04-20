@@ -24,3 +24,15 @@
 {
     background-color: gray;
 }
+.Header button
+{
+    background-color:blue;
+    border:none;
+    color:white;
+    height:40px;
+    width:80px;
+    border:1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
+    margin:5px;
+}

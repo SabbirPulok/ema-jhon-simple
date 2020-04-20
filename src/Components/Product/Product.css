@@ -21,7 +21,20 @@
     color:black;
     font-weight: 700;
     width: 200px;
-    border:1px solid lightseagreen;
+    border:1px solid lightgray;
     border-radius:8px;
     padding: 5px 20px;
+    cursor: pointer;
+}
+.product-cart-btn:hover
+{
+    background-color: gold;
+    color:black;
+    font-weight: 700;
+    width: 200px;
+    border:1px solid lightsalmon;
+    border-radius:8px;
+    padding: 5px 20px;
+    cursor: pointer;
+    opacity: 0.8;
 }

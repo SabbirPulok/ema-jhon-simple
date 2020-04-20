@@ -1,0 +1,16 @@
+.ShipForm
+{
+    margin:30px 500px;
+}
+.ShipForm input{
+    display: block;
+    margin-top: 25px;
+    width:500px;
+    height:40px;
+    border:2px solid gray;
+    border-radius:5px;
+}
+.error
+{
+    color:red;
+}
