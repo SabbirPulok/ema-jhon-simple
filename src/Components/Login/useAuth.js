@@ -61,7 +61,6 @@ const Auth = () => {
             setUser(signInUser); 
         })
         .catch(error => {
-            console.log(error);
             setUser(null);
             return error.message;
         })
@@ -89,7 +88,6 @@ const Auth = () => {
             }
         )
     },[])
-    // console.log(user);
     return{
         user, signInWithGoogle, signOut
     }

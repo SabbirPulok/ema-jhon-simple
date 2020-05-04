@@ -2,16 +2,37 @@ import React from 'react';
 import { useForm} from 'react-hook-form';
 import './Shipment.css';
 import { useAuth } from '../Login/useAuth';
+import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
+import { useState } from 'react';
 
 const Shipment = () => {
     const { register, handleSubmit, errors } = useForm();
-    const onSubmit = data => { console.log(data) };
-
     const auth = useAuth();
+    const [orderPlacedId, setOrderPlaceId] = useState(null);
+
+    const onSubmit = data => {
+      const savedCart = getDatabaseCart();
+      const userName = auth.user.name;
+      const email = auth.user.email;
+      const orderDetails = {name:userName,email,cart:savedCart};
+      fetch('http://localhost:4200/placeOrder',{
+        method:'POST',
+        body: JSON.stringify(orderDetails),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        setOrderPlaceId(data._id);
+        processOrder();
+      })
+    };
   
     return (
-      <form className="ShipForm" onSubmit={handleSubmit(onSubmit)}>     
-
+    orderPlacedId ? <button className="btn btn-warning p-5 m-3">Order Id {orderPlacedId} placed successfully. Thank You!</button>
+      :
+        <form className="ShipForm" onSubmit={handleSubmit(onSubmit)}>     
         <input name="name" defaultValue={auth.user.name} ref={register({ required: true })} placeholder="Full Name" />
         {errors.name && <span className="error">*Name is required</span>}
 
@@ -34,6 +55,7 @@ const Shipment = () => {
         
         <input type="submit" />
       </form>
+    
     );
 };
 

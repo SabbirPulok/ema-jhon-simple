@@ -15,7 +15,6 @@ const Login = () => {
             window.location.pathname = '/shop';
         })
     }
-    //console.log(auth.user);
     return (
         <div>
             <h1>Join the party!!!</h1>

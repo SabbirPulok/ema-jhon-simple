@@ -1,25 +1,14 @@
 import React, { useEffect } from 'react';
 import './Review.css';
-import { useState } from 'react';
-import { getDatabaseCart, removeFromDatabaseCart, processOrder } from '../../utilities/databaseManager';
-import fakeData from '../../fakeData';
+import { useState} from 'react';
+import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
-import thankYou from '../../images/giphy.gif';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../Login/useAuth';
-
 const Review = () => {
     const [cart, setCart] = useState([]);
-    const [placedOrder, setplacedOrder] = useState(false);
-
     const auth =useAuth();
-
-    // const handlePlaceOrder = () =>{
-    //     setCart([]);
-    //     setplacedOrder(true);
-    //     processOrder();
-    // }
 
     const handleRemoveProduct = (productKey)=>{ 
         const newCart = cart.filter((pd)=> pd.key!==productKey);//remove the productKey Element
@@ -30,12 +19,22 @@ const Review = () => {
     useEffect(()=>{
             const savedCart = getDatabaseCart();
             const productKeys = Object.keys(savedCart);
-            const cartProducts = productKeys.map(key => {
-                const product= fakeData.find(pd => pd.key===key)
+            fetch('http://localhost:4200/getCartProduct',{
+                method:'POST',
+                body:JSON.stringify(productKeys),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                const cartProducts = productKeys.map(key => {
+                const product= data.find(pd => pd.key===key)
                 product.quantity = savedCart[key];
                 return product;
-            });
-            setCart(cartProducts);
+                });
+                setCart(cartProducts);
+            }) 
         },[])
     return (
         <div className="shop-container">
@@ -49,7 +48,6 @@ const Review = () => {
                 {
                     !(cart.length) && <h1>No items added. <a href="/shop" alt="">Keep Shopping</a></h1>
                 }
-                {placedOrder && <img src={thankYou} alt=""/>}
             </div>
             <div className="cart-container">
                 <Cart cart={cart}>
