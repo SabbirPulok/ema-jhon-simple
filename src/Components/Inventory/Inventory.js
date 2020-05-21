@@ -35,7 +35,7 @@ const Inventory = () => {
             <button onClick={()=>setCount(count+1)}>+</button>
             <button onClick={()=>setCount(count-1)}>-</button>
             <hr></hr>
-            <button onClick={handleAddData} className="m-3">
+            <button onClick={handleAddData} className="m-3" disabled>
                 Add Inventory
             </button>
                        
