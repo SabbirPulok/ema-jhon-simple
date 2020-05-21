@@ -19,7 +19,7 @@ const Review = () => {
     useEffect(()=>{
             const savedCart = getDatabaseCart();
             const productKeys = Object.keys(savedCart);
-            fetch('http://localhost:4200/getCartProduct',{
+            fetch('https://ema-john-simple-sabbir.herokuapp.com/getCartProduct',{
                 method:'POST',
                 body:JSON.stringify(productKeys),
                 headers: {

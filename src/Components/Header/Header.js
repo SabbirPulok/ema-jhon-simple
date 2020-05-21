@@ -20,8 +20,8 @@ const Header = () => {
                         </span>
                 }
                 {
-                    auth.user ?  <button onClick={auth.signOut}>Sign Out</button>
-                        : <button onClick={auth.signInWithGoogle}>Sign In</button>
+                    auth.user ?  <button className="btn" onClick={auth.signOut}>Sign Out</button>
+                        : <button className="btn" onClick={auth.signInWithGoogle}>Sign In</button>
                 }
             </nav>
         </div>
